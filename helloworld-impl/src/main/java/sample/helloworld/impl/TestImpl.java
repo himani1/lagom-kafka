@@ -1,18 +1,15 @@
 package sample.helloworld.impl;
 
 import akka.Done;
-import akka.NotUsed;
 import akka.stream.javadsl.Flow;
-import com.lightbend.lagom.javadsl.api.ServiceCall;
-
 import javax.inject.Inject;
 
+import com.google.inject.Singleton;
 import sample.helloworld.api.GreetingMessage;
 import sample.helloworld.api.HelloService;
 
-import static java.util.concurrent.CompletableFuture.completedFuture;
-
-public class TestImpl implements Test {
+@Singleton
+public class TestImpl {
 
     private final HelloService helloService;
 

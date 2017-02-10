@@ -6,6 +6,14 @@ scalaVersion in ThisBuild := "2.11.8"
 // SCALA SUPPORT: Remove the line below
 EclipseKeys.projectFlavor in Global := EclipseProjectFlavor.Java
 
+//#kafka-broker-dependency
+//libraryDependencies ++= Seq(lagomJavadslBroker, lagomJavadslKafkaBroker, lagomJavadslKafkaClient)
+//libraryDependencies += lagomJavadslBroker
+
+//#kafka-client-dependency
+//libraryDependencies += lagomJavadslKafkaClient
+//#kafka-client-dependency
+
 lazy val helloworldApi = project("helloworld-api")
   .settings(
     version := "1.0-SNAPSHOT",
@@ -51,3 +59,5 @@ lazy val jacksonParameterNamesJavacSettings = Seq(
   javacOptions in compile += "-parameters"
 )
 
+lagomKafkaEnabled in ThisBuild := false
+lagomKafkaAddress in ThisBuild := "localhost:9092"

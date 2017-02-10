@@ -13,7 +13,7 @@ import sample.helloworld.api.HelloService;
 public class HelloServiceModule extends AbstractModule implements ServiceGuiceSupport {
   @Override
   protected void configure() {
-    bindServices(serviceBinding(HelloService.class, HelloServiceImpl.class),
-    serviceBinding(Test.class,TestImpl.class));
+    bindServices(serviceBinding(HelloService.class, HelloServiceImpl.class));
+    bind(TestImpl.class).asEagerSingleton();
   }
 }
