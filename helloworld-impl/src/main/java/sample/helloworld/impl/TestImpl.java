@@ -14,26 +14,18 @@ import static java.util.concurrent.CompletableFuture.completedFuture;
 
 public class TestImpl implements Test {
 
-  //#inject-service
-  private final HelloService helloService;
+    private final HelloService helloService;
 
-  @Inject public TestImpl(HelloService helloService) {
-    this.helloService = helloService;
-  }
-  //#inject-service
+    @Inject
+    public TestImpl(HelloService helloService) {
+        this.helloService = helloService;
+        helloService.greetingsTopic().subscribe()
+                .atLeastOnce(Flow.fromFunction(this::doSomethingWithTheMessage));
+    }
 
-  public ServiceCall<NotUsed, NotUsed> audit() {
-    //#subscribe-to-topic
-    helloService.greetingsTopic().subscribe() // <-- you get back a Subscriber instance
-        .atLeastOnce(
-            Flow.fromFunction(this::doSomethingWithTheMessage));
-    //#subscribe-to-topic
-    return name -> completedFuture(NotUsed.getInstance());
-  }
-
-  private Done doSomethingWithTheMessage(GreetingMessage message) {
-    System.out.println("Message: " + message);
-    return Done.getInstance();
-  }
+    private Done doSomethingWithTheMessage(GreetingMessage message) {
+        System.out.println("Message: " + message);
+        return Done.getInstance();
+    }
 
 }
